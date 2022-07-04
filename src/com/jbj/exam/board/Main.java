@@ -26,6 +26,10 @@ public class Main {
 
 		makeTestData(articles);
 		
+		if ( articles.size() > 0 ) {
+			articleLastId = articles.get(articles.size() - 1).id;
+		}
+		
 		while(true) {
 			System.out.printf("¸í·É)");
 			String cmd = sc.nextLine();
