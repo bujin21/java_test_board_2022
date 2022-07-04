@@ -20,7 +20,7 @@ public class Main {
 		System.out.println("== 프로그램 시작 ==");
 		
 		int articleLastId = 0;
-		Article lastArticle = null;
+		
 
 		ArrayList<Article> articles = new ArrayList<Article>(); 
 
@@ -51,19 +51,21 @@ public class Main {
 			
 			// /usr/article/detail 입력되면 가장 최근 게시물 정보 노출
 			}else if ( cmd.equals("/usr/article/detail")) {
-				Article article = lastArticle;
+				
 
-				if ( lastArticle == null ) {
+				if ( articles.isEmpty()) {
 					System.out.println("게시물이 존재하지 않습니다.");
 					continue;
 				}
-
+				
+				Article article = articles.get(articles.size() - 1);
+				
 				System.out.println("- 게시물 상세보기 -");
 				System.out.printf("번호 : %d\n", article.id);
 				System.out.printf("제목 : %s\n", article.title);
 				System.out.printf("내용 : %s\n", article.body);
 				
-			}else if(cmd.equals("/urs/article/write")) {
+			}else if(cmd.equals("/usr/article/write")) {
 				System.out.println("- 게시물 등록 -");
 				System.out.printf("제목 :");
 				String title = sc.nextLine();
@@ -74,7 +76,6 @@ public class Main {
 				articleLastId = id;
 				
 				Article article = new Article(id, title,body);
-				lastArticle = article;
 				
 				articles.add(article);
 				
