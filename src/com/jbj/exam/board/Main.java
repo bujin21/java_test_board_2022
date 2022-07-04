@@ -1,10 +1,11 @@
 package com.jbj.exam.board;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-	static void makeTestData(ArrayList<Article>articles) {
+	static void makeTestData(List<Article>articles) {
 		articles.add(new Article(1, "力格1", "郴侩1"));
 		articles.add(new Article(2, "力格2", "郴侩2"));
 		articles.add(new Article(3, "力格3", "郴侩3"));
@@ -22,7 +23,7 @@ public class Main {
 		int articleLastId = 0;
 		
 
-		ArrayList<Article> articles = new ArrayList<Article>(); 
+		List<Article> articles = new ArrayList<Article>(); 
 
 		makeTestData(articles);
 		
