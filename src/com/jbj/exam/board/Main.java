@@ -36,8 +36,8 @@ public class Main {
 			
 			if(cmd.equals("exit")) {
 				break;
-			}
-			else if ( cmd.equals("/usr/article/list")) {
+				
+			}else if ( cmd.equals("/usr/article/list")) {
 				System.out.println("- 게시물 리스트 -");
 				System.out.println("-----------------");
 				System.out.println("번호 / 제목");
@@ -48,9 +48,9 @@ public class Main {
 					System.out.printf("%d / %s\n", article.id, article.title);
 				}
 
-			}
+			
 			// /usr/article/detail 입력되면 가장 최근 게시물 정보 노출
-			else if ( cmd.equals("/usr/article/detail")) {
+			}else if ( cmd.equals("/usr/article/detail")) {
 				Article article = lastArticle;
 
 				if ( lastArticle == null ) {
@@ -63,8 +63,7 @@ public class Main {
 				System.out.printf("제목 : %s\n", article.title);
 				System.out.printf("내용 : %s\n", article.body);
 				
-			}
-			else if(cmd.equals("/urs/article/write")) {
+			}else if(cmd.equals("/urs/article/write")) {
 				System.out.println("- 게시물 등록 -");
 				System.out.printf("제목 :");
 				String title = sc.nextLine();
@@ -77,6 +76,7 @@ public class Main {
 				Article article = new Article(id, title,body);
 				lastArticle = article;
 				
+				articles.add(article);
 				
 				System.out.println("입력된 객체 : "+ article);
 				
