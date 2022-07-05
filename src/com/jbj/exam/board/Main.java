@@ -59,10 +59,22 @@ public class Main {
 			// /usr/article/detail 입력되면 가장 최근 게시물 정보 노출
 			}else if ( rq.getUrlPath().equals("/usr/article/detail")) {
 				
-				int id = Integer.parseInt(params.get("id"));
+				if ( params.containsKey("id") == false ) {
+					System.out.println("id를 입력해주세요.");
+					continue;
+				}
 
 				if ( articles.isEmpty()) {
 					System.out.println("게시물이 존재하지 않습니다.");
+					continue;
+				}
+				
+				int id = 0;
+
+				try {
+					id = Integer.parseInt(params.get("id"));
+				} catch (NumberFormatException  e) {
+					System.out.println("id를 정수형태로 입력해주세요.");
 					continue;
 				}
 				
