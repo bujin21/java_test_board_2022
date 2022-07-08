@@ -8,9 +8,11 @@ import java.util.Scanner;
 
 public class Main {
 	static void makeTestData(List<Article> articles) {
-		articles.add(new Article(1, "力格1", "郴侩1"));
-		articles.add(new Article(2, "力格2", "郴侩2"));
-		articles.add(new Article(3, "力格3", "郴侩3"));
+		for ( int i = 0; i < 100; i++ ) {
+			int id = i + 1;
+			articles.add(new Article(id, "力格" + id, "郴侩" + id));
+		}
+		
 	}
 
 	public static void main(String[] args) {
