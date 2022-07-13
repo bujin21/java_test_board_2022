@@ -40,40 +40,10 @@ public class Main {
 			if (rq.getUrlPath().equals("exit")) {
 				break;
 			} else if (rq.getUrlPath().equals("/usr/article/list")) {
-				actionUsrArticleList(rq, articles );
+				actionUsrArticleList(rq, articles);
 
 			} else if (rq.getUrlPath().equals("/usr/article/detail")) {
-
-				if (params.containsKey("id") == false) {
-					System.out.println("id를 입력해주세요.");
-					continue;
-				}
-
-				if (articles.isEmpty()) {
-					System.out.println("게시물이 존재하지 않습니다.");
-					continue;
-				}
-
-				int id = 0;
-
-				try {
-					id = Integer.parseInt(params.get("id"));
-				} catch (NumberFormatException e) {
-					System.out.println("id를 정수형태로 입력해주세요.");
-					continue;
-				}
-
-				Article article = articles.get(id - 1);
-
-				if (id > articles.size()) {
-					System.out.println("게시물이 존재하지 않습니다.");
-					continue;
-				}
-
-				System.out.println("- 게시물 상세보기 -");
-				System.out.printf("번호 : %d\n", article.id);
-				System.out.printf("제목 : %s\n", article.title);
-				System.out.printf("내용 : %s\n", article.body);
+				actionUsrArticleDetail(rq, articles);
 
 			} else if (rq.getUrlPath().equals("/usr/article/write")) {
 				actionUsrArticleWrite(rq, sc, articles, articleLastId);
@@ -86,7 +56,42 @@ public class Main {
 		System.out.println("== 프로그램 종료 == ");
 		sc.close();
 	}
-	
+
+	private static void actionUsrArticleDetail(Rq rq, List<Article> articles) {
+		Map<String, String> params = rq.getParams();
+		
+		if (params.containsKey("id") == false) {
+			System.out.println("id를 입력해주세요.");
+			return;
+		}
+
+		if (articles.isEmpty()) {
+			System.out.println("게시물이 존재하지 않습니다.");
+			return;
+		}
+
+		int id = 0;
+
+		try {
+			id = Integer.parseInt(params.get("id"));
+		} catch (NumberFormatException e) {
+			System.out.println("id를 정수형태로 입력해주세요.");
+			return;
+		}
+
+		Article article = articles.get(id - 1);
+
+		if (id > articles.size()) {
+			System.out.println("게시물이 존재하지 않습니다.");
+			return;
+		}
+
+		System.out.println("- 게시물 상세보기 -");
+		System.out.printf("번호 : %d\n", article.id);
+		System.out.printf("제목 : %s\n", article.title);
+		System.out.printf("내용 : %s\n", article.body);
+	}
+
 	private static void actionUsrArticleWrite(Rq rq, Scanner sc, List<Article> articles, int articleLastId) {
 		System.out.println("- 게시물 등록 - ");
 		System.out.printf("제목: ");
@@ -110,9 +115,9 @@ public class Main {
 		System.out.println("-----------------");
 		System.out.println("번호 / 제목");
 		System.out.println("-----------------");
-		
-		Map<String, String> params = rq.getParams();		
-		
+
+		Map<String, String> params = rq.getParams();
+
 		// 검색시작
 		List<Article> filteredArticles = articles;
 
@@ -146,16 +151,15 @@ public class Main {
 		for (Article article : sortedArticles) {
 			System.out.printf("%d / %s\n", article.id, article.title);
 		}
-		
+
 	}
 }
 
 class Rq {
-	private String url; // 접근제어자를 붙이는게 관례. 외부에서 접근 불가능.
+	private String url;
 	private String urlPath;
 	private Map<String, String> params;
 
-	
 	Rq(String url) {
 		this.url = url;
 		urlPath = Util.getUrlPathFromUrl(this.url);
