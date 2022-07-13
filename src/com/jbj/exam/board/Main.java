@@ -76,22 +76,8 @@ public class Main {
 				System.out.printf("내용 : %s\n", article.body);
 
 			} else if (rq.getUrlPath().equals("/usr/article/write")) {
-				System.out.println("- 게시물 등록 - ");
-				System.out.printf("제목: ");
-				String title = sc.nextLine();
-				System.out.printf("내용: ");
-				String body = sc.nextLine();
-
-				int id = articleLastId + 1;
-				articleLastId = id;
-
-				Article article = new Article(id, title, body);
-
-				articles.add(article);
-
-				System.out.println("입력된 객체 : " + article);
-
-				System.out.printf("%d번 게시물이 입력되었습니다.\n", id);
+				actionUsrArticleWrite(rq, sc, articles, articleLastId);
+				articleLastId++;
 			}
 
 			System.out.printf("입력된 명령어 : %s\n", cmd);
@@ -99,6 +85,24 @@ public class Main {
 
 		System.out.println("== 프로그램 종료 == ");
 		sc.close();
+	}
+	
+	private static void actionUsrArticleWrite(Rq rq, Scanner sc, List<Article> articles, int articleLastId) {
+		System.out.println("- 게시물 등록 - ");
+		System.out.printf("제목: ");
+		String title = sc.nextLine();
+		System.out.printf("내용: ");
+		String body = sc.nextLine();
+
+		int id = articleLastId + 1;
+
+		Article article = new Article(id, title, body);
+
+		articles.add(article);
+
+		System.out.println("입력된 객체 : " + article);
+
+		System.out.printf("%d번 게시물이 입력되었습니다.\n", id);
 	}
 
 	private static void actionUsrArticleList(Rq rq, List<Article> articles) {
