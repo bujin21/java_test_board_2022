@@ -45,7 +45,24 @@ public class Main {
 				System.out.println("번호 / 제목");
 				System.out.println("-----------------");
 
-				List<Article> sortedArticles = articles;
+				List<Article> filteredArticles = articles;
+
+				if ( params.containsKey("searchKeyword")) {
+					String searchKeyword = params.get("searchKeyword");
+
+					filteredArticles = new ArrayList<>();
+
+					for ( Article article : articles) {
+						boolean matched = article.title.contains(searchKeyword) || article.body.contains(searchKeyword);
+
+						if ( matched ) {
+							filteredArticles.add(article);
+						}
+					}
+				}
+
+
+				List<Article> sortedArticles = filteredArticles;
 
 				boolean orderByIdDesc = true;
 
@@ -125,29 +142,25 @@ class Rq {
 	private String url; // 접근제어자를 붙이는게 관례. 외부에서 접근 불가능.
 	private String urlPath;
 	private Map<String, String> params;
-// 인스턴스 변수 -> 여기에 다 붙임
 
-// 필드추가가능
 
-// 수정가능
+
 	Rq(String url) {
 		this.url = url;
 		urlPath = Util.getUrlPathFromUrl(this.url);
 		params = Util.getParamsFromUrl(this.url);
 	}
 
-// 수정가능, if문 금지
 	public Map<String, String> getParams() {
 		return params;
 	}
 
-// 수정가능, if문 금지
 	public String getUrlPath() {
 		return urlPath;
 	}
 }
 
-// 수정불가능
+
 class Util {
 	// 이 함수는 원본리스트를 훼손하지 않고, 새 리스트를 만듭니다. 즉 정렬이 반대인 복사본리스트를 만들어서 반환합니다.
 	public static <T> List<T> reverseList(List<T> list) {
